@@ -1,66 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: 'smooth'
-            });
-        });
-    });
+// DOM Elements
+const hoursElement = document.getElementById('hours');
+const minutesElement = document.getElementById('minutes');
+const secondsElement = document.getElementById('seconds');
+const ampmElement = document.getElementById('ampm');
+const toggleFormatBtn = document.getElementById('toggleFormat');
+const toggleThemeBtn = document.getElementById('toggleTheme');
 
-    // CTA button click handler
-    const ctaButton = document.getElementById('cta-button');
-    if (ctaButton) {
-        ctaButton.addEventListener('click', function() {
-            alert('Thanks for your interest! We\'ll be in touch soon.');
-        });
+let is24HourFormat = false;
+let isDarkMode = false;
+
+// Update Clock Every Second
+function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes().toString().padStart(2, '0');
+    let seconds = now.getSeconds().toString().padStart(2, '0');
+    let ampm = 'AM';
+
+    // 12-hour format logic
+    if (!is24HourFormat) {
+        ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12; // Convert 0 to 12
     }
 
-    // Form submission handler
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Here you would typically send the data to a server
-            console.log('Form submitted:', { name, email, message });
-            
-            // Show success message
-            alert('Thank you for your message! We\'ll get back to you soon.');
-            
-            // Reset form
-            contactForm.reset();
-        });
-    }
+    hoursElement.textContent = hours.toString().padStart(2, '0');
+    minutesElement.textContent = minutes;
+    secondsElement.textContent = seconds;
+    ampmElement.textContent = ampm;
 
-    // Add active class to current section in navigation
-    window.addEventListener('scroll', function() {
-        const scrollPosition = window.scrollY;
-        
-        document.querySelectorAll('section').forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                document.querySelectorAll('nav a').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    });
+    // Toggle AM/PM visibility
+    ampmElement.classList.toggle('hidden', is24HourFormat);
+}
+
+// Toggle 12/24-Hour Format
+toggleFormatBtn.addEventListener('click', () => {
+    is24HourFormat = !is24HourFormat;
+    toggleFormatBtn.textContent = is24HourFormat ? 'Switch to 12H' : 'Switch to 24H';
+    updateClock();
 });
+
+// Toggle Dark/Light Mode
+toggleThemeBtn.addEventListener('click', () => {
+    isDarkMode = !isDarkMode;
+    document.body.classList.toggle('dark', isDarkMode);
+    toggleThemeBtn.textContent = isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
+});
+
+// Initialize Clock
+updateClock();
+setInterval(updateClock, 1000);

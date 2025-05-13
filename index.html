@@ -3,88 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+    <title>Digital Clock with Themes</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Welcome to My Website</h1>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+    <div class="clock-container">
+        <div class="clock">
+            <span id="hours">00</span>:
+            <span id="minutes">00</span>:
+            <span id="seconds">00</span>
+            <span id="ampm" class="hidden">AM</span>
         </div>
-    </header>
-
-    <main>
-        <section id="home" class="hero">
-            <div class="container">
-                <h2>ABOUT ME</h2>
-                <p> I am Aruna. I am a native of Guntur.At present i am pursuing BTech in the stream of IT from VVIT.</p>
-                <button id="cta-button">Learn More</button>
-            </div>
-        </section>
-
-        <section id="about" class="content-section">
-            <div class="container">
-                <h2>About Us</h2>
-                <p>We are a team of passionate individuals dedicated to creating amazing web experiences.</p>
-            </div>
-        </section>
-
-        <section id="services" class="content-section">
-            <div class="container">
-                <h2>Our Services</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <h3>Web Design</h3>
-                        <p>Beautiful, responsive designs tailored to your needs.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Development</h3>
-                        <p>Robust and scalable web applications.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>SEO</h3>
-                        <p>Improve your search engine rankings.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="content-section">
-            <div class="container">
-                <h2>Contact Us</h2>
-                <form id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit">Send Message</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 My Website. All rights reserved.</p>
+        <div class="controls">
+            <button id="toggleFormat">Switch to 24H</button>
+            <button id="toggleTheme">🌙 Dark Mode</button>
         </div>
-    </footer>
-
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
